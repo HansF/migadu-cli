@@ -7,13 +7,8 @@ Built following the 37signals **API + CLI + Skills** architecture pattern for ag
 ## Installation
 
 ```bash
-pip install migadu-cli
-```
-
-Or from source:
-
-```bash
-git clone <this-repo>
+# Install from source (PyPI package coming soon)
+git clone https://github.com/HansF/migadu-cli.git
 cd migadu-cli
 pip install -e .
 ```
@@ -54,6 +49,7 @@ migadu skills --list
 
 - `migadu domain` — domains: list, get, create, update, records, diagnostics, activate, usage
 - `migadu mailbox` — mailboxes: list, get, create, update, delete, reset-password, set-autoresponder
+  - Create: `migadu mailbox create example.com alice --password "pass" [--wildcard]`
 - `migadu alias` — aliases: list, get, create, update, delete
 - `migadu identity` — identities: list, get, create, update, delete
 - `migadu forwarding` — forwardings: list, get, create, update, delete
