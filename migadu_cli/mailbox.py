@@ -55,10 +55,13 @@ def register_mailbox_commands(cli):
     @click.option("--forwarding-to", help="External address to forward to.")
     @click.option("--is-internal/--no-is-internal", "is_internal", default=False,
                   help="Internal-only mailbox (no external messages).")
+    @click.option("--wildcard/--no-wildcard", "wildcard_sender", default=False,
+                  help="Enable wildcard sender (can be left false/default for standard use).")
     @click.option("--json", "as_json", is_flag=True, default=False, help="Output machine-readable JSON.")
     @click.pass_context
     def create_mailbox(ctx, domain, local_part, name, password, password_method,
-                       password_recovery_email, forwarding_to, is_internal, as_json):
+                       password_recovery_email, forwarding_to, is_internal,
+                       wildcard_sender, as_json):
         """Create a mailbox. Idempotent: re-running returns existing mailbox."""
         try:
             client = make_client(ctx, None, None)
@@ -70,6 +73,7 @@ def register_mailbox_commands(cli):
                 password_recovery_email=password_recovery_email,
                 forwarding_to=forwarding_to,
                 is_internal=is_internal,
+                wildcard_sender=wildcard_sender,
             )
             _print({"mailbox": data, "address": f"{local_part}@{domain}", "success": True}, as_json)
             ctx.exit(0)
@@ -85,6 +89,7 @@ def register_mailbox_commands(cli):
     @click.option("--password-recovery-email", help="Recovery email for invitation method.")
     @click.option("--forwarding-to", help="External forwarding address.")
     @click.option("--is-internal/--no-is-internal", "is_internal", help="Internal-only mailbox.")
+    @click.option("--wildcard/--no-wildcard", "wildcard_sender", help="Enable wildcard sender.")
     @click.option("--may-send/--no-may-send", "may_send", help="Allow sending.")
     @click.option("--may-receive/--no-may-receive", "may_receive", help="Allow receiving.")
     @click.option("--may-access-imap/--no-may-access-imap", "may_access_imap", help="IMAP access.")
@@ -107,6 +112,7 @@ def register_mailbox_commands(cli):
                 may_send=may_send, may_receive=may_receive,
                 may_access_imap=may_access_imap, may_access_pop3=may_access_pop3,
                 may_access_managesieve=may_access_managesieve,
+                wildcard_sender=wildcard_sender,
             )
             _print({"mailbox": data, "success": True}, as_json)
             ctx.exit(0)
