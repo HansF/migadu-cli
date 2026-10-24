@@ -1,0 +1,22 @@
+[project]
+name = "migadu-cli"
+version = "0.1.0"
+description = "Agent-friendly CLI wrapper for the Migadu API"
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.1",
+    "requests>=2.31",
+]
+
+[project.scripts]
+migadu = "migadu_cli.main:cli"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["migadu_cli"]
+
+[tool.setuptools.package-data]
+migadu_cli = ["skills/*.md"]
