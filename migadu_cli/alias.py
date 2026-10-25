@@ -46,7 +46,7 @@ def register_alias_commands(cli):
     @click.argument("domain")
     @click.argument("local_part")
     @click.option("--destinations", help="Comma-separated targets.")
-    @click.option("--is-internal/--no-is-internal", "is_internal")
+    @click.option("--is-internal/--no-is-internal", "is_internal", default=None)
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def update_alias(ctx, domain, local_part, destinations, is_internal, as_json):

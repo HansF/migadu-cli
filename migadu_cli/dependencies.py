@@ -38,6 +38,13 @@ def _print(obj, as_json):
 
 def _handle_error(exc):
     """Map API errors to exit codes. Diagnostics to stderr only."""
+    # ctx.exit(n) raises click.exceptions.Exit, which is a RuntimeError and therefore caught by
+    # the commands' `except Exception`. Passing it through here keeps the intended exit code;
+    # without this every successful command printed "Error: 0" and exited 1.
+    if isinstance(exc, click.exceptions.Exit):
+        raise exc
+    if isinstance(exc, click.exceptions.Abort):
+        raise exc
     if isinstance(exc, MigaduAPIError):
         click.echo(f"API error ({exc.status_code}): {exc}", err=True)
         if exc.status_code == 401:

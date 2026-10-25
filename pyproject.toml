@@ -1,6 +1,6 @@
 [project]
 name = "migadu-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "Agent-friendly CLI wrapper for the Migadu API"
 requires-python = ">=3.9"
 dependencies = [

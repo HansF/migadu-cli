@@ -60,8 +60,8 @@ def register_identity_commands(cli):
     @click.option("--name", help="Display name.")
     @click.option("--password", help="New password.")
     @click.option("--password-use", type=click.Choice(["none", "mailbox", "custom"]))
-    @click.option("--may-send/--no-may-send", "may_send")
-    @click.option("--may-receive/--no-may-receive", "may_receive")
+    @click.option("--may-send/--no-may-send", "may_send", default=None)
+    @click.option("--may-receive/--no-may-receive", "may_receive", default=None)
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def update_identity(ctx, domain, mailbox, local_part, name, password, password_use, may_send, may_receive, as_json):

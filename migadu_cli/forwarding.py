@@ -40,9 +40,9 @@ def register_forwarding_commands(cli):
     @click.argument("domain")
     @click.argument("mailbox")
     @click.argument("address")
-    @click.option("--is-active/--not-active", "is_active", help="Active status.")
+    @click.option("--is-active/--not-active", "is_active", default=None, help="Active status.")
     @click.option("--expires-on", help="Future date YYYY-MM-DD.")
-    @click.option("--remove-upon-expiry/--no-remove-upon-expiry", "remove_upon_expiry")
+    @click.option("--remove-upon-expiry/--no-remove-upon-expiry", "remove_upon_expiry", default=None)
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def update_forwarding(ctx, domain, mailbox, address, is_active, expires_on, remove_upon_expiry, as_json):

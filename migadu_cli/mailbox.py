@@ -88,13 +88,16 @@ def register_mailbox_commands(cli):
     @click.option("--password-method", type=click.Choice(["password", "invitation"]), help="Change password method.")
     @click.option("--password-recovery-email", help="Recovery email for invitation method.")
     @click.option("--forwarding-to", help="External forwarding address.")
-    @click.option("--is-internal/--no-is-internal", "is_internal", help="Internal-only mailbox.")
-    @click.option("--wildcard/--no-wildcard", "wildcard_sender", help="Enable wildcard sender.")
-    @click.option("--may-send/--no-may-send", "may_send", help="Allow sending.")
-    @click.option("--may-receive/--no-may-receive", "may_receive", help="Allow receiving.")
-    @click.option("--may-access-imap/--no-may-access-imap", "may_access_imap", help="IMAP access.")
-    @click.option("--may-access-pop3/--no-may-access-pop3", "may_access_pop3", help="POP3 access.")
-    @click.option("--may-access-managesieve/--no-may-access-managesieve", "may_access_managesieve", help="ManageSieve access.")
+    # default=None on every toggle: PATCH must only carry fields the caller actually set.
+    # Without it click defaults flag pairs to False and an update silently disables sending,
+    # receiving and IMAP access on the mailbox (seen in production 2026-10-25).
+    @click.option("--is-internal/--no-is-internal", "is_internal", default=None, help="Internal-only mailbox.")
+    @click.option("--wildcard/--no-wildcard", "wildcard_sender", default=None, help="Enable wildcard sender.")
+    @click.option("--may-send/--no-may-send", "may_send", default=None, help="Allow sending.")
+    @click.option("--may-receive/--no-may-receive", "may_receive", default=None, help="Allow receiving.")
+    @click.option("--may-access-imap/--no-may-access-imap", "may_access_imap", default=None, help="IMAP access.")
+    @click.option("--may-access-pop3/--no-may-access-pop3", "may_access_pop3", default=None, help="POP3 access.")
+    @click.option("--may-access-managesieve/--no-may-access-managesieve", "may_access_managesieve", default=None, help="ManageSieve access.")
     @click.option("--json", "as_json", is_flag=True, default=False, help="Output machine-readable JSON.")
     @click.pass_context
     def update_mailbox(ctx, domain, local_part, name, password, password_method,
