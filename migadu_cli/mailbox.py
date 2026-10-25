@@ -99,6 +99,7 @@ def register_mailbox_commands(cli):
     @click.pass_context
     def update_mailbox(ctx, domain, local_part, name, password, password_method,
                        password_recovery_email, forwarding_to, is_internal,
+                       wildcard_sender,
                        may_send, may_receive, may_access_imap, may_access_pop3,
                        may_access_managesieve, as_json):
         """Update mailbox fields. Idempotent: PATCH only sends changed fields."""
